@@ -50,6 +50,18 @@ module.exports = function(app, express) {
             });
         })
 
+         // delete the user with thi id
+        // (accessed at DELETE http://localhost:8080/api/users/:user_id)
+        .delete(function(req, res) {
+            User.remove({
+                _id: req.params.user_id
+            }, function(err, user) {
+                if (err) return res.send(err);
+
+                res.json({ message: 'Successfully deleted!'});
+            });
+        });
+
 
 
         return actionOnUser;
