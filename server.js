@@ -115,6 +115,19 @@ app.use('/api', apiRouter);
 app.use('/admin', adminRoutes);
 app.use('/', loginRoutes);
 
+// MAIN CATCHALL ROUTE ---------------------
+// SEND USERS TO FRONTEND ------------------
+// has to be registered after API ROUTES
+// Using the * will match all routes.It is important to 
+// put this route after the API routes since we only
+// want it to catch routes not handled by Node. 
+// If this were placed above the API routes, 
+// then our user would always be sent the index.html 
+// file and never even get to the API routes.
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+});
+
 app.listen(config.port, function() {
 	console.log('Magic happens on port ', config.port);
 });
