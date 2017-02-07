@@ -51,6 +51,10 @@ var apiRouter	= require('./app/routes/api')(app, express);
 var adminRoutes = require('./app/routes/admin')(app, express);
 var loginRoutes = require('./app/routes/login')(app, express);
 
+// route to authenticate users
+var authUsers	= require('./app/routes/api/authRoute')(app, express);
+app.use('/api', authUsers);
+
 // route to create and get users
 var createUsers = require('./app/routes/api/createUser')(app, express);
 app.use('/api', createUsers);
