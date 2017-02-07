@@ -25,5 +25,9 @@ module.exports = function(app, express) {
         res.json({messge: 'Hooray! This is our first API!'});
     });
 
+    apiRouter.get('/me', function(req, res) {
+        res.send(req.decode);
+    });
+
     return apiRouter;
 };

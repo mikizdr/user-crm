@@ -55,6 +55,54 @@ var loginRoutes = require('./app/routes/login')(app, express);
 var authUsers	= require('./app/routes/api/authRoute')(app, express);
 app.use('/api', authUsers);
 
+// Route Middleware to Protect API Routes
+// to check the token on every request for our authenticated routes
+// midleware to use for all requests
+// this is where we will authenticate users
+// to check the token on every request for our authenticated routes. 
+
+var appRouter = express.Router();
+
+appRouter.use(function(req, res, next) {
+
+	// do logging
+	console.log('Somebody just came to our app!');
+
+	// check header or url parameters or post parameters for token
+	var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+	// decode token
+	if (token) {
+
+		// verifies secret snd checks exp
+		jwt.verify(token, config.secret, function(err, decoded) {
+			if (err) {
+				return res.status(403)({
+					success: false,
+					message: 'Failed to authenticate token.'
+				});
+			} else {
+				// if everything is good, save to request for use in other routes
+				req.decoded = decoded;
+
+				// we go to the next routes and don`t stop here
+				next();
+			}
+		});
+	} else {
+
+		// if there is no token
+		// return an HTTP response of 403 (access forbiden) and an error message
+		return res.status(403).send({
+			success: false,
+			message: 'No token provided.'
+		});
+	}
+	
+	// next(); // used to be here but it have moved to be in if/else statement so that
+	// our users will only continue forward if they have a valid token and it verified correctly
+});
+
 // route to create and get users
 var createUsers = require('./app/routes/api/createUser')(app, express);
 app.use('/api', createUsers);
