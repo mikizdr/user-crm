@@ -26,7 +26,7 @@ module.exports = function(app, express) {
     });
 
     apiRouter.get('/me', function(req, res) {
-        res.send(req.decode);
+        res.send(req.decoded);
     });
 
     return apiRouter;

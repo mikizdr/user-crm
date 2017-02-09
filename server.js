@@ -37,11 +37,15 @@ mongoose.connect(config.database, function(err, db) {
     }
 });
 
+// set static file location
+// used for requests that our frontend will make
+app.use(express.static(__dirname + '/public/app'));
+
 // basic route for the home page
 // send our index.html file to the user for the home page
-app.get('/', function(req, res) {
-	res.sendFile(path.join(__dirname + '/index.html'));
-});
+//app.get('/', function(req, res) {
+//	res.sendFile(path.join(__dirname + '/index.html'));
+//});
 
 
 // ROUTES IN OUR APP
