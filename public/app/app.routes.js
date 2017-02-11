@@ -1,5 +1,5 @@
 // inject ngRoute for all our routing needs
-angular.module('routerRoutes', ['ngRoute'])
+angular.module('app.routes', ['ngRoute'])
 
     // configure our routes
     .config(function($routeProvider, $locationProvider) {
@@ -7,25 +7,12 @@ angular.module('routerRoutes', ['ngRoute'])
 
             // route for the home page
             .when('/', {
-                templateUrl : 'views/pages/home.html',
-                controller  : 'homeController',
-                controllerAs: 'home'
-            })
-
-            // route for the about page
-            .when('/about', {
-                templateUrl : 'views/pages/about.html',
-                controller  : 'aboutController',
-                controllerAs: 'about'
-            })
-
-            // route for the contact page
-            .when('/contact', {
-                templateUrl : 'views/pages/contact.html',
-                controller  : 'contactController',
-                controllerAs: 'contact'
+                templateUrl : 'app/views/pages/home.html'//,
+                //controller  : 'homeController',
+                //controllerAs: 'home'
             });
         
-        // ser our app to have pretty URLs
+        // get rid of the hash in the URL
+        // set our app to have pretty URLs
         $locationProvider.html5Mode(true);
     });
