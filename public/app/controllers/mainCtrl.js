@@ -22,9 +22,12 @@ angular.module('mainCtrl', [])
         // function to handle login form
         vm.doLogin = function() {
 
+            vm.processing = true;
+
             // call the Auth.login() function
             Auth.login(vm.loginData.username, vm.loginData.password)
                 .then(function(data) {
+                    vm.processing = false;
 
                     // if a user successfully logs in, redirect to user page
                     $location.path('/users');

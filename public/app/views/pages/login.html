@@ -19,7 +19,11 @@
 
               <!--LOGIN BUTTON-->
               <button type="submit" class="btn btn-block btn-primary">
-                  <span>Login</span>
+                  
+                  <span ng-if="!login.processing">Login</span>
+                
+                  <span class="spinner" ng-if="login.processing"><span class="glyphicon glyphicon-repeat"></span></span>
+
               </button>
         </form>
     </div>
